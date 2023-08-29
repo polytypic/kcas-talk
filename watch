@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+PROJECT="talk"
+
+tmux start-server
+tmux new-session -d -s "$PROJECT"
+
+tmux splitw -v -p 50
+
+tmux select-pane -t 0
+tmux send-keys "dune test -w" C-m
+
+tmux select-pane -t 1
+tmux send-keys "npx reveal-md slides.md -w" C-m
+
+tmux attach-session -t "$PROJECT"
